@@ -64,7 +64,8 @@ export async function POST(request: NextRequest) {
 
     const { data, error } = await supabase
       .from('articles')
-      .insert(articleData)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      .insert(articleData as any)
       .select()
       .single()
 
