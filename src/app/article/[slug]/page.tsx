@@ -17,28 +17,28 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    supabase
-      .from('articles')
-      .select('*')
-      .eq('slug', slug)
-      .single()
-      .then(({ data, error }) => {
+    async function load() {
+      try {
+        const { data, error } = await supabase
+          .from('articles')
+          .select('*')
+          .eq('slug', slug)
+          .single()
         if (!error && data) {
-          setArticle(data as Article)
-          return supabase
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const art = data as any as Article
+          setArticle(art)
+          const { data: rel } = await supabase
             .from('articles')
             .select('*')
-            .eq('section', data.section)
+            .eq('section', art.section)
             .limit(4)
+          if (rel) setRelated((rel as any as Article[]).filter(a => a.slug !== slug).slice(0, 3))
         }
-      })
-      .then(result => {
-        if (result && !result.error && result.data) {
-          setRelated((result.data as Article[]).filter(a => a.slug !== slug).slice(0, 3))
-        }
-      })
-      .catch(() => {})
-      .finally(() => setLoading(false))
+      } catch {}
+      finally { setLoading(false) }
+    }
+    load()
   }, [slug])
 
   if (loading) {
