@@ -114,12 +114,16 @@ export async function DELETE(request: NextRequest) {
 }
 
 function generateSlug(title: string): string {
+  // 한글 제거, 영어/숫자만 남겨서 URL-safe slug 생성
   const base = title
     .toLowerCase()
-    .replace(/[^a-z0-9가-힣\s-]/g, '')
+    .replace(/[^a-z0-9\s-]/g, '')
     .replace(/\s+/g, '-')
-    .slice(0, 60)
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '')
+    .slice(0, 40)
   const date = new Date().toISOString().slice(0, 10).replace(/-/g, '')
-  const random = Math.random().toString(36).slice(2, 6)
-  return `${base}-${date}-${random}`
+  const random = Math.random().toString(36).slice(2, 7)
+  const prefix = base || 'article'
+  return `${prefix}-${date}-${random}`
 }

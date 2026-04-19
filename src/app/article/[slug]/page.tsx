@@ -10,7 +10,8 @@ import type { Article } from '@/types/database'
 import { supabase } from '@/lib/supabase'
 
 export default function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = use(params)
+  const rawSlug = use(params).slug
+  const slug = decodeURIComponent(rawSlug)
   const { lang } = useLang()
   const [article, setArticle] = useState<Article | null>(null)
   const [related, setRelated] = useState<Article[]>([])
@@ -23,7 +24,7 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
           .from('articles')
           .select('*')
           .eq('slug', slug)
-          .single()
+          .maybeSingle()
         if (!error && data) {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const art = data as any as Article
