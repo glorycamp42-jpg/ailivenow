@@ -1,12 +1,11 @@
 import { createClient } from '@supabase/supabase-js'
 import type { Database } from '@/types/database'
 
-// 서버사이드 전용 - service role key 사용 (RLS 우회)
 export function createServerClient() {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY!
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 
-  return createClient<Database>(supabaseUrl, serviceRoleKey, {
+  return createClient<Database>(supabaseUrl, key, {
     auth: {
       autoRefreshToken: false,
       persistSession: false,
