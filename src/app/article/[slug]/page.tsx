@@ -79,7 +79,7 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
         <span className="truncate max-w-xs" style={{ color: 'rgba(255,255,255,0.5)' }}>{title}</span>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr) 300px', gap: '2rem' }}>
+      <div className="main-grid">
         <article className="min-w-0">
           <div className="mb-6">
             <div className="flex items-center gap-2 flex-wrap mb-3">
@@ -134,7 +134,7 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
           {related.length > 0 && (
             <div className="mt-10">
               <h2 className="text-base font-black mb-4" style={{ color: 'rgba(255,255,255,0.7)' }}>관련 기사</h2>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px,1fr))', gap: '1rem' }}>
+              <div className="section-grid">
                 {related.map(a => <ArticleCard key={a.id} article={a} variant="default" />)}
               </div>
             </div>

@@ -66,13 +66,13 @@ export default function HomePage() {
       )}
 
       {!loading && articles.length > 0 && (
-        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 300px', gap: '2rem' }}>
+        <div className="main-grid">
           <div className="space-y-8">
 
             {/* 히어로 섹션 */}
             {heroArticle && (
               <section>
-                <div style={{ display: 'grid', gridTemplateColumns: '3fr 2fr', gap: '1rem' }}>
+                <div className="hero-grid">
                   <div>
                     <ArticleCard article={heroArticle} variant="hero" />
                   </div>
@@ -123,7 +123,7 @@ export default function HomePage() {
                     </Link>
                   </div>
                   <div className="h-px mb-4" style={{ background: 'linear-gradient(90deg, rgba(0,217,255,0.15), transparent)' }} />
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1rem' }}>
+                  <div className="section-grid">
                     {sectionArticles.slice(0, 3).map(a => (
                       <ArticleCard key={a.id} article={a} variant="default" />
                     ))}
