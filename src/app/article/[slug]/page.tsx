@@ -7,6 +7,7 @@ import { sections } from '@/i18n/translations'
 import ArticleCard from '@/components/ui/ArticleCard'
 import Sidebar from '@/components/sections/Sidebar'
 import type { Article } from '@/types/database'
+import { supabase } from '@/lib/supabase'
 
 export default function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params)
@@ -16,18 +17,24 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch(`/api/articles?slug=${slug}`)
-      .then(r => r.json())
-      .then(data => {
-        if (Array.isArray(data) && data.length > 0) {
-          setArticle(data[0])
-          return fetch(`/api/articles?section=${data[0].section}&limit=4`)
+    supabase
+      .from('articles')
+      .select('*')
+      .eq('slug', slug)
+      .single()
+      .then(({ data, error }) => {
+        if (!error && data) {
+          setArticle(data as Article)
+          return supabase
+            .from('articles')
+            .select('*')
+            .eq('section', data.section)
+            .limit(4)
         }
       })
-      .then(r => r?.json())
-      .then(data => {
-        if (Array.isArray(data)) {
-          setRelated(data.filter(a => a.slug !== slug).slice(0, 3))
+      .then(result => {
+        if (result && !result.error && result.data) {
+          setRelated((result.data as Article[]).filter(a => a.slug !== slug).slice(0, 3))
         }
       })
       .catch(() => {})

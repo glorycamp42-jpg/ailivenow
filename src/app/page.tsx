@@ -7,6 +7,7 @@ import ArticleCard from '@/components/ui/ArticleCard'
 import Sidebar from '@/components/sections/Sidebar'
 import { useEffect, useState } from 'react'
 import type { Article } from '@/types/database'
+import { supabase } from '@/lib/supabase'
 
 export default function HomePage() {
   const { lang, t } = useLang()
@@ -14,10 +15,13 @@ export default function HomePage() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch('/api/articles?limit=100')
-      .then(r => r.json())
-      .then(data => {
-        if (Array.isArray(data)) setArticles(data)
+    supabase
+      .from('articles')
+      .select('*')
+      .order('published_at', { ascending: false })
+      .limit(100)
+      .then(({ data, error }) => {
+        if (!error && data) setArticles(data as Article[])
       })
       .catch(() => {})
       .finally(() => setLoading(false))
