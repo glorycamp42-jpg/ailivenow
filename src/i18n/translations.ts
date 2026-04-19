@@ -1,0 +1,58 @@
+export const sections = [
+  { id: 'ai-video',    emoji: '🎬', ko: 'AI 영상',           en: 'AI Video',      desc: 'Sora, Runway, 영상 생성 AI' },
+  { id: 'ai-medical',  emoji: '🏥', ko: 'AI 의료',           en: 'AI Medical',    desc: 'FDA 승인, 진단 AI, 바이오텍' },
+  { id: 'ai-legal',    emoji: '⚖️', ko: 'AI 법률',           en: 'AI Legal',      desc: 'LegalTech, AI 규제' },
+  { id: 'ai-software', emoji: '📰', ko: 'AI 신규 소프트웨어', en: 'AI Software',   desc: '출시/업데이트, 오픈소스 모델' },
+  { id: 'ai-devices',  emoji: '📱', ko: 'AI 기기',           en: 'AI Devices',    desc: 'AI 폰, 웨어러블, 하드웨어' },
+  { id: 'ai-business', emoji: '💰', ko: 'AI 기업/투자',      en: 'AI Business',   desc: '실리콘밸리, 스타트업, VC' },
+  { id: 'korean-ai',   emoji: '🇰🇷', ko: '한인 AI 비즈니스',  en: 'Korean AI Biz', desc: 'LA/실리콘밸리 한인 AI' },
+  { id: 'ai-guide',    emoji: '📚', ko: 'AI 가이드',         en: 'AI Guide',      desc: '한국어 튜토리얼, 프롬프트' },
+]
+
+export const translations = {
+  ko: {
+    siteName: 'AI Live Now',
+    siteTagline: '실시간 AI 뉴스 & 인사이트',
+    hotIssue: '🔥 핫이슈 / 실시간',
+    breaking: '속보',
+    featured: '주요 기사',
+    trending: '트렌딩',
+    latest: '최신 뉴스',
+    readMore: '더 보기',
+    viewAll: '전체 보기',
+    language: 'EN',
+    searchPlaceholder: 'AI 뉴스 검색...',
+    footerDisclosure: 'AI Disclosure',
+    footerDisclosureText: '이 사이트의 콘텐츠는 AI가 생성 및 큐레이션하며 에디터가 검수합니다.',
+    footerCopyright: '© 2026 Kkupo Holdings. All rights reserved.',
+    minRead: '분 읽기',
+    aiGenerated: 'AI 분석',
+    aiCurated: 'AI 큐레이션',
+    noArticles: '아직 기사가 없습니다.',
+    views: '회 조회',
+  },
+  en: {
+    siteName: 'AI Live Now',
+    siteTagline: 'Real-time AI News & Insights',
+    hotIssue: '🔥 Hot Issue / Live',
+    breaking: 'Breaking',
+    featured: 'Featured',
+    trending: 'Trending',
+    latest: 'Latest',
+    readMore: 'Read More',
+    viewAll: 'View All',
+    language: '한국어',
+    searchPlaceholder: 'Search AI news...',
+    footerDisclosure: 'AI Disclosure',
+    footerDisclosureText: 'Content is AI-generated and curated, reviewed by our editorial team.',
+    footerCopyright: '© 2026 Kkupo Holdings. All rights reserved.',
+    minRead: 'min read',
+    aiGenerated: 'AI Generated',
+    aiCurated: 'AI Curated',
+    noArticles: 'No articles yet.',
+    views: 'views',
+  },
+}
+
+export type Lang = 'ko' | 'en'
+export type TranslationKey = keyof typeof translations.ko
