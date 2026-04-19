@@ -15,16 +15,19 @@ export default function HomePage() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    supabase
-      .from('articles')
-      .select('*')
-      .order('published_at', { ascending: false })
-      .limit(100)
-      .then(({ data, error }) => {
-        if (!error && data) setArticles(data as Article[])
-      })
-      .catch(() => {})
-      .finally(() => setLoading(false))
+    async function load() {
+      try {
+        const { data, error } = await supabase
+          .from('articles')
+          .select('*')
+          .order('published_at', { ascending: false })
+          .limit(100)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        if (!error && data) setArticles(data as any as Article[])
+      } catch {}
+      finally { setLoading(false) }
+    }
+    load()
   }, [])
 
   const featured = articles.filter(a => a.is_featured)
