@@ -28,9 +28,15 @@ const defaultForm: AdForm = {
   notes: '', is_active: true,
 }
 
+interface AdSlot {
+  id: string; name: string; advertiser: string; position: AdPosition
+  link_url: string; image_url: string; is_active: boolean
+  impressions: number; clicks: number; start_date: string; end_date: string | null
+}
+
 // 샘플 광고 슬롯 (Supabase 연동 전 로컬 상태)
-const sampleAds = [
-  { id: '1', name: '런칭 기념 배너', advertiser: 'ello care', position: 'banner_top' as AdPosition, link_url: 'https://ellocare.com', image_url: '', is_active: true, impressions: 0, clicks: 0, start_date: new Date().toISOString().slice(0, 10), end_date: null },
+const sampleAds: AdSlot[] = [
+  { id: '1', name: '런칭 기념 배너', advertiser: 'ello care', position: 'banner_top', link_url: 'https://ellocare.com', image_url: '', is_active: true, impressions: 0, clicks: 0, start_date: new Date().toISOString().slice(0, 10), end_date: null },
 ]
 
 const inputStyle = {
